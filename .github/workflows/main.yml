@@ -6,15 +6,25 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Run custom action with string
-        uses: ./.github/actions/hello-json
+        id: greet_string
+        uses: ./github/actions/hello-pooja   # updated to match your folder
         with:
-          name: 'Mona the Octocat'
+          who-to-greet: 'Mona the Octocat'
+
+      - name: Show string output
+        run: |
+          echo "Greeting: ${{ steps.greet_string.outputs.greeting }}"
 
       - name: Run custom action with JSON
-        uses: ./.github/actions/hello-json
+        id: greet_json
+        uses: ./github/actions/hello-pooja
         with:
-          name: '{"name":"GitHub Student"}'
+          who-to-greet: '{"name":"GitHub Student"}'
+
+      - name: Show JSON output
+        run: |
+          echo "Greeting: ${{ steps.greet_json.outputs.greeting }}"
