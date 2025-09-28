@@ -1,0 +1,20 @@
+name: Hello JSON Workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run custom action with string
+        uses: ./.github/actions/hello-json
+        with:
+          name: 'Mona the Octocat'
+
+      - name: Run custom action with JSON
+        uses: ./.github/actions/hello-json
+        with:
+          name: '{"name":"GitHub Student"}'
